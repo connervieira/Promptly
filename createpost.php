@@ -44,7 +44,7 @@ include("./config.php");
 
 
         // Make sure the post title is below the limit.
-        if (strlen($post_text) >= $max_post_title_length) {
+        if (strlen($post_title) >= $max_post_title_length) {
             echo "Error: The post title exceeds the maximum length.";
             echo "<br><a href='./draft.php" . "'>Back</a>";
             exit();
