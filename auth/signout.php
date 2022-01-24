@@ -12,6 +12,11 @@ include("../config.php"); // Import Promptly configuration.
     </head>
     <body>
         <?php
+        if ($enabled_integrated_authentication == false) { // Check to see if the integrated authentication system has been disabled.
+            echo "<p>The integrated authentication system has been disabled.</p>";
+            exit();
+        }
+
         session_start(); // Start the PHP session
         if (!isset($_SESSION['loggedin'])) { // Check to see if the user is already signed in.
             echo "<p class='error'>You aren't currently signed in!</p>";

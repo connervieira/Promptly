@@ -12,6 +12,11 @@ include("../config.php"); // Import Promptly configuration.
     </head>
     <body>
         <?php
+        if ($enabled_integrated_authentication == false) { // Check to see if the integrated authentication system has been disabled.
+            echo "<p>The integrated authentication system has been disabled.</p>";
+            exit();
+        }
+
         $username = $_POST["username"];
         $password1 = $_POST["password1"];
         $password2 = $_POST["password2"];

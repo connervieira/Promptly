@@ -23,11 +23,11 @@ $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
     <body>
         <div class="button-container">
             <?php
-            if ($username == $admin_account) {
+            if ($username == $admin_account) { // Only show the "Create Post" option if the user is signed in as an admin.
                 echo "<div class='button'><a href='./draft.php'>Create Post</a></div>";
             }
             if ($username !== null) {
-                echo "<div class='button'><a href='./auth/signout.php'>Sign Out</a></div>";
+                echo "<div class='button'><a href='" . $signout_page . "'>Sign Out</a></div>";
             }
             ?>
         </div>
