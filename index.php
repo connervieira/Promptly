@@ -37,7 +37,7 @@ $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
         <div class="posts-view">
             <?php
             if (sizeof($post_database) > 0 ) {
-                foreach ($post_database as $post) {
+                foreach (array_reverse($post_database) as $post) {
                     echo "<div class='individual-post'>";
                     echo "<h1>" . $post[2] . "</h1>"; // Show the post title.
                     echo "<p class='post-date'>" . $post[5] . "</p>"; // Show the post body text.
