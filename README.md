@@ -12,6 +12,10 @@ The majority of people who want to run a blog don't need (and often don't want) 
 While Promptly works great as a simple blogging platform, or as a starting point for developers to build more complex platforms, it's intentionally simple and non-complex. If you're looking for a feature rich blogging system, Promptly may not be for you.
 
 
+## Screenshots
+![Main Promptly interface with a few sample blog posts](assets/screenshots/screenshot1.png)
+
+
 ## Features
 
 ### Simple
