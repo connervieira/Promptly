@@ -4,7 +4,7 @@ include("./config.php");
 <html lang="en">
     <head>
         <title>Blog - Create Post</title>
-        <link rel="stylesheet" type="text/css" href="./styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="./styles/<?php echo $theme; ?>.css">
     </head>
     <body>
         <?php

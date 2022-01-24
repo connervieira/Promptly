@@ -4,7 +4,7 @@ $admin_account = "cvieira"; // This setting determines which account can create 
 $instance_name = "Promptly"; // This setting specifies the name of the instance. It can usually be left as "Promptly", but can also be changed to better integrated with your website.
 $instance_tagline = "A quick, no-nonsense blogging system."; // This is the tagline that gets shown on the front page of your blog.
 
-$theme = "normal"; // This setting determines which stylesheet Promptly will use. Currently, this can be set to either "normal" or "dark".
+$theme = "green"; // This setting determines which stylesheet Promptly will use. Currently, this can be set to "light", "dark", "red", "blue", or "green".
 
 $enabled_integrated_authentication = false; // This setting determines whether or not Promptly's integrated authentication system is enabled or disabled. If you already have an existing authentication system, you should disable the integrated one to prevent any conflicts and security issues.
 $login_page = "../login.php"; // This setting determines the login page for Promptly. If you're using the integrated authentcation system, set this variable to './auth/signin.php'

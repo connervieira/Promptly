@@ -13,7 +13,7 @@ if (isset($_SESSION['loggedin'])) {
 <html lang="en">
     <head>
         <title>Blog - Draft</title>
-        <link rel="stylesheet" type="text/css" href="./styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="./styles/<?php echo $theme; ?>.css">
     </head>
 
     <body>

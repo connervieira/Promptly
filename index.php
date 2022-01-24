@@ -17,7 +17,7 @@ $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
 <html lang="en">
     <head>
         <title>Blog</title>
-        <link rel="stylesheet" type="text/css" href="./styles/styles.css">
+        <link rel="stylesheet" type="text/css" href="./styles/<?php echo $theme; ?>.css">
     </head>
 
     <body>
