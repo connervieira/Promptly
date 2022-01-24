@@ -40,7 +40,7 @@ $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
                 foreach (array_reverse($post_database) as $post) {
                     echo "<div class='individual-post'>";
                     echo "<h1>" . $post[2] . "</h1>"; // Show the post title.
-                    echo "<p class='post-date'>" . $post[5] . "</p>"; // Show the post body text.
+                    echo "<p class='post-date'>" . $post[5] . "</p>"; // Show the post date text.
                     echo "<p class='post-text'>" . $post[1] . "</p>"; // Show the post body text.
                     if ($username == $admin_account) {
                         echo "<a href='deletepost.php?post_to_delete=" . $post[0] . "'>Delete post</a>";
