@@ -1,5 +1,5 @@
 <?php
-include("./config.php");
+include("./config.php"); // Load the Promptly configuration information.
 ?>
 <!DOCTYPE html>
 <html lang="en">
