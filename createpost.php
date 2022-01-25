@@ -17,15 +17,13 @@ include("./config.php");
             exit();
         }
 
-        if ($username !== $admin_account and $admin_only_posting) { // Make sure the user is signed in with an account that allows them to make posts.
+        if ($username !== $admin_account and $admin_only_posting == true) { // Make sure the user is signed in with an account that allows them to make posts.
             echo "<p>Error: You do not have permission to create posts. Please make sure you are signed in with the correct account.</p>";
             exit();
+        } else { // For security reasons, only load the database if the user has permission to make posts. This shouldn't make a difference, since the script should stop running in this case, but it's an added barrier.
+            // Load the posts database from disk.
+            $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
         }
-
-
-
-        // Load the posts database from disk.
-        $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
 
 
         // Get required information from the POST data.
@@ -52,13 +50,12 @@ include("./config.php");
 
 
 
-        // Sanitze the post text
+        // Replace permitted HTML strings with placeholders.
         $post_text = str_replace("<br>", "&&br", $post_text);
         $post_text = str_replace("<", "&lt;", $post_text);
         $post_text = str_replace(">", "&gt;", $post_text);
 
-
-
+        
         // Iterate through the entire post and remove any characters not in the approved list.
         $allowed_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?.,'\"_-+=/\\~@#$%^&*()[]}{;:©£¢¥®±¿Ø÷×ºµ¦₿ "; // Note: The space at end of string is intentional.
 
@@ -78,8 +75,8 @@ include("./config.php");
         // Find the last post in the array.
         $latestpost = end($post_database);
 
-        
-        array_push($post_database, array($latestpost[0] + 1, $post_text, $post_title, $username, 0, date('Y-m-d H:i:s'), array())); // Add the post to the post database.
+
+        array_push($post_database, array($latestpost[0] + 1, $post_text, $post_title, $username, 0, date('Y-m-d H:i:s'), array())); // Add the post to the post database. [post ID, post text, post title, poster's username, placeholder number, post date, placeholder array]
 
 
         file_put_contents("./blogpostdatabase.txt", serialize($post_database)); // Write array changes to disk
