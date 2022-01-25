@@ -17,18 +17,18 @@ include("./config.php"); // Load the Promptly configuration information.
             header("Location: .auth/signin.php");
             exit();
         }
-
-        if ($username !== $admin_account) { // Make sure the user is signed in with the admin account.
-            echo "<p>Error: You do not have permission to remove posts. Please make sure you are signed in with the correct account.</p>";
-            exit();
-        }
-
+        
         $post_database = unserialize(file_get_contents('./blogpostdatabase.txt')); // Load the post database from the disk.
 
+        $id_to_delete = (int)($_GET['post_to_delete']) - 1; // Get the ID number of the post to delete from the GET data.
 
-        $id_to_delete = (int)$_GET['post_to_delete']; // Get the ID number of the post to delete from the GET data.
 
-        unset($post_database[$id_to_delete - 1]); // Delete the specified post.
+        if ($username !== $admin_account or $username == $post_database[$id_to_delete][3]) { // Make sure the user is signed in with either the admin account, or the account that published the post.
+            echo "<p>Error: You do not have permission to remove this post. Please make sure you are signed in with the correct account.</p>";
+            exit(); // Stop loading the page.
+        } else {
+            unset($post_database[$id_to_delete]); // Remove the specified post from the post database.
+        }
 
         file_put_contents('./blogpostdatabase.txt', serialize($post_database)); // Save the post database to disk.
 
