@@ -29,3 +29,11 @@ As you might imagine from it's simplicity, Promptly is unbelievably lightweight.
 ### Accessible
 
 The simple design of Promptly makes in inherently accessible. All of the webpages are clearly laid out, easy to understand, and easy to read, even with visual impairments. Promptly is also very screen-reader friendly.
+
+### Modifiable
+
+Promptly is designed to be as easy to modify as possible, and has hundreds of in-line comments to make the code easier to understand. If you'd like to build your own blogging platform, but don't want to do everything from the ground up, Promptly can be a great starting point.
+
+### Customizable
+
+For people who don't want to take the time modifying Promptly, it already has plenty of built in customization. It's easy to configure things like max post length, who is allowed to make posts, and even styling.
