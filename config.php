@@ -1,6 +1,8 @@
 <?php
 $admin_account = "cvieira"; // This setting determines which account can create and delete posts.
 
+$admin_only_posting = true; // This setting determines whether or not the admin is the only user who can create posts. This should be set to true under normal circumstances to prevent unauthorized users from posting to your blog.
+
 $instance_name = "Promptly"; // This setting specifies the name of the instance. It can usually be left as "Promptly", but can also be changed to better integrated with your website.
 $instance_tagline = "A quick, no-nonsense blogging system."; // This is the tagline that gets shown on the front page of your blog.
 
