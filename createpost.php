@@ -17,7 +17,7 @@ include("./config.php");
             exit();
         }
 
-        if ($username !== $admin_account) { // Make sure the user is signed in with the admin account.
+        if ($username !== $admin_account and $admin_only_posting) { // Make sure the user is signed in with an account that allows them to make posts.
             echo "<p>Error: You do not have permission to create posts. Please make sure you are signed in with the correct account.</p>";
             exit();
         }
@@ -71,16 +71,14 @@ include("./config.php");
         }
 
 
-
         // Fix custom formatting that was broken by the sanitzation process.
         $post_text = str_replace("&&br", "<br>", $post_text);
-
 
 
         // Find the last post in the array.
         $latestpost = end($post_database);
 
-
+        
         array_push($post_database, array($latestpost[0] + 1, $post_text, $post_title, $username, 0, date('Y-m-d H:i:s'), array())); // Add the post to the post database.
 
 
