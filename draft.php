@@ -18,9 +18,9 @@ if (isset($_SESSION['loggedin'])) {
 
     <body>
         <?php
-        if ($username !== $admin_account) {
+        if ($username !== $admin_account and $admin_only_posting == true) { // Check to see if the current user actually has permission to be making posts.
             echo "<p>Error: You do not have permission to make posts. Please make sure you are signed in with the correct account.</p>";
-            exit();
+            exit(); // Stop loading the page if the user isn't signed in with an account that allows them to post.
         }
         ?>
         <div class="button-container">
