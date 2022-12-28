@@ -14,7 +14,7 @@ include("./config.php"); // Load the Promptly configuration information.
         if (isset($_SESSION['loggedin'])) {
             $username = $_SESSION['username'];
         } else {
-            header("Location: .auth/signin.php");
+            header("Location: ./auth/signin.php");
             exit();
         }
         
@@ -23,7 +23,7 @@ include("./config.php"); // Load the Promptly configuration information.
         $id_to_delete = (int)($_GET['post_to_delete']) - 1; // Get the ID number of the post to delete from the GET data.
 
 
-        if ($username !== $admin_account or $username == $post_database[$id_to_delete][3]) { // Make sure the user is signed in with either the admin account, or the account that published the post.
+        if ($username !== $admin_account and $username == $post_database[$id_to_delete][3]) { // Make sure the user is signed in with either the admin account, or the account that published the post.
             echo "<p>Error: You do not have permission to remove this post. Please make sure you are signed in with the correct account.</p>";
             exit(); // Stop loading the page.
         } else {
@@ -32,7 +32,7 @@ include("./config.php"); // Load the Promptly configuration information.
 
         file_put_contents('./blogpostdatabase.txt', serialize($post_database)); // Save the post database to disk.
 
-        $redirect_location = "index.php"; // Set the redirect location to the main page.
+        $redirect_location = "./index.php"; // Set the redirect location to the main page.
         header('Location: ' . $redirect_location); // Execute the redirect.
         ?>
     </body>
