@@ -24,8 +24,6 @@ This document explains how to install, set up, and use Promptly.
 1. Make the Promptly directory writable.
     - Example: `chmod 777 /var/www/html/promptly`
 2. Make any desired configuration changes.
-    - While configuration changes can be made at any time, now is a good time to set up your intial configuration.
-    - To configure Promptly, modify the `config.php` file located inside the Promptly directory.
 
 
 ## Usage

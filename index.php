@@ -9,8 +9,6 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,10 +20,10 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
     <body>
         <div class="button-container">
             <?php
-            if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
-                echo "<a class='button' href='./draft.php'>Create Post</a>";
-            }
-            if ($username !== null) { // Only show the "Sign Out" button if the user is signed in.
+            if (isset($username)) { // Only show certain actions if the user is signed in.
+                if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
+                    echo "<a class='button' href='./draft.php'>Create Post</a>";
+                }
                 echo "<a class='button' href='" . $promptly_config["auth"]["signout_page"] . "'>Sign Out</a>";
             }
             ?>
