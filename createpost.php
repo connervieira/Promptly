@@ -1,26 +1,21 @@
 <?php
+$force_login_redirect = true;
+include("../dropauth/authentication.php");
 include("./config.php");
 ?>
 <html lang="en">
     <head>
         <title>Blog - Create Post</title>
-        <link rel="stylesheet" type="text/css" href="./styles/<?php echo $theme; ?>.css">
+        <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
     <body>
         <?php
         // Check to see if the user is signed in. Otherwise, redirect them to the login page.
-        session_start();
-        if (isset($_SESSION['loggedin'])) {
-            $username = $_SESSION['username'];
-        } else {
-            header("Location: ./auth/signin.php");
-            exit();
-        }
 
-        if ($username !== $admin_account and $admin_only_posting == true) { // Make sure the user is signed in with an account that allows them to make posts.
+        if ($username !== $promptly_config["admin_account"] and $promptly_config["admin_only_posting"] == true) { // Make sure the user is signed in with an account that allows them to make posts.
             echo "<p>Error: You do not have permission to create posts. Please make sure you are signed in with the correct account.</p>";
             exit();
-        } else { // For security reasons, only load the database if the user has permission to make posts. This shouldn't make a difference, since the script should stop running in this case, but it's an added barrier.
+        } else {
             // Load the posts database from disk.
             $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
         }
@@ -33,7 +28,7 @@ include("./config.php");
 
 
         // Make sure the post text is below the limit.
-        if (strlen($post_text) >= $max_post_body_length) {
+        if (strlen($post_text) >= $promptly_config["max_post_body_length"]) {
             echo "Error: The post text exceeds the maximum length.";
             echo "<br><a href='./draft.php" . "'>Back</a>";
             exit();
@@ -42,7 +37,7 @@ include("./config.php");
 
 
         // Make sure the post title is below the limit.
-        if (strlen($post_title) >= $max_post_title_length) {
+        if (strlen($post_title) >= $promptly_config["max_post_title_length"]) {
             echo "Error: The post title exceeds the maximum length.";
             echo "<br><a href='./draft.php" . "'>Back</a>";
             exit();
@@ -52,6 +47,31 @@ include("./config.php");
 
         // Replace permitted HTML strings with placeholders.
         $post_text = str_replace("<br>", "&&br", $post_text);
+        $post_text = str_replace("<hr>", "&&hr", $post_text);
+        $post_text = str_replace("<ul>", "&&ul", $post_text);
+        $post_text = str_replace("</ul>", "&&/ul", $post_text);
+        $post_text = str_replace("<ol>", "&&ol", $post_text);
+        $post_text = str_replace("</ol>", "&&/ol", $post_text);
+        $post_text = str_replace("<li>", "&&li", $post_text);
+        $post_text = str_replace("</li>", "&&/li", $post_text);
+        $post_text = str_replace("<b>", "&&b", $post_text);
+        $post_text = str_replace("</b>", "&&/b", $post_text);
+        $post_text = str_replace("<i>", "&&i", $post_text);
+        $post_text = str_replace("</i>", "&&/i", $post_text);
+        $post_text = str_replace("<u>", "&&u", $post_text);
+        $post_text = str_replace("</u>", "&&/u", $post_text);
+        $post_text = str_replace("<h1>", "&&h1", $post_text);
+        $post_text = str_replace("</h1>", "&&/h1", $post_text);
+        $post_text = str_replace("<h2>", "&&h2", $post_text);
+        $post_text = str_replace("</h2>", "&&/h2", $post_text);
+        $post_text = str_replace("<h3>", "&&h3", $post_text);
+        $post_text = str_replace("</h3>", "&&/h3", $post_text);
+        $post_text = str_replace("<h4>", "&&h4", $post_text);
+        $post_text = str_replace("</h4>", "&&/h4", $post_text);
+        $post_text = str_replace("<h5>", "&&h5", $post_text);
+        $post_text = str_replace("</h5>", "&&/h5", $post_text);
+        $post_text = str_replace("<h6>", "&&h6", $post_text);
+        $post_text = str_replace("</h6>", "&&/h6", $post_text);
         $post_text = str_replace("<", "&lt;", $post_text);
         $post_text = str_replace(">", "&gt;", $post_text);
 
@@ -70,18 +90,46 @@ include("./config.php");
 
         // Fix custom formatting that was broken by the sanitzation process.
         $post_text = str_replace("&&br", "<br>", $post_text);
+        $post_text = str_replace("&&hr", "<hr>", $post_text);
+        $post_text = str_replace("&&ul", "<ul>", $post_text);
+        $post_text = str_replace("&&/ul", "</ul>", $post_text);
+        $post_text = str_replace("&&ol", "<ol>", $post_text);
+        $post_text = str_replace("&&/ol", "</ol>", $post_text);
+        $post_text = str_replace("&&li", "<li>", $post_text);
+        $post_text = str_replace("&&/li", "</li>", $post_text);
+        $post_text = str_replace("&&b", "<b>", $post_text);
+        $post_text = str_replace("&&/b", "</b>", $post_text);
+        $post_text = str_replace("&&i", "<i>", $post_text);
+        $post_text = str_replace("&&/i", "</i>", $post_text);
+        $post_text = str_replace("&&u", "<u>", $post_text);
+        $post_text = str_replace("&&/u", "</u>", $post_text);
+        $post_text = str_replace("&&h1", "<h1>", $post_text);
+        $post_text = str_replace("&&/h1", "</h1>", $post_text);
+        $post_text = str_replace("&&h2", "<h2>", $post_text);
+        $post_text = str_replace("&&/h2", "</h2>", $post_text);
+        $post_text = str_replace("&&h3", "<h3>", $post_text);
+        $post_text = str_replace("&&/h3", "</h3>", $post_text);
+        $post_text = str_replace("&&h4", "<h4>", $post_text);
+        $post_text = str_replace("&&/h4", "</h4>", $post_text);
+        $post_text = str_replace("&&h5", "<h5>", $post_text);
+        $post_text = str_replace("&&/h5", "</h5>", $post_text);
+        $post_text = str_replace("&&h6", "<h6>", $post_text);
+        $post_text = str_replace("&&/h6", "</h6>", $post_text);
 
 
-        // Find the last post in the array.
-        $latestpost = end($post_database);
-
-
-        array_push($post_database, array($latestpost[0] + 1, $post_text, $post_title, $username, 0, date('Y-m-d H:i:s'), array())); // Add the post to the post database. [post ID, post text, post title, poster's username, placeholder number, post date, placeholder array]
+        $post_time = time();
+        $post_database[$post_time] = array();
+        $post_database[$post_time]["title"] = $post_title;
+        $post_database[$post_time]["body"] = $post_text;
+        $post_database[$post_time]["author"]["primary"] = $username;
+        $post_database[$post_time]["time"]["created"] = $post_time;
+        $post_database[$post_time]["time"]["edited"] = $post_time;
+        $post_database[$post_time]["time"]["edited"] = $post_time;
 
 
         file_put_contents("./blogpostdatabase.txt", serialize($post_database)); // Write array changes to disk
         $redirect_location = "./index.php"; // Set redirect to the main page
-        header('Location: '.$redirect_location); // Execute redirect
+        header('Location: ' . $redirect_location); // Execute redirect
         ?>
     </body>
 </html>

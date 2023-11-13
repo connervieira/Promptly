@@ -20,15 +20,19 @@ While Promptly works great as a simple blogging platform, or as a starting point
 
 ### Simple
 
-The main benefit to Promptly is it's unbelievable simplicity. It contains only what you need to get started with blogging, and absolutely nothing more. This makes it a great starting platform for building your own website from the ground up.
+Promptly's main intention is to be a simple, easy to use blogging platform. All unnecessary features are designed to stay out of your way until you need them.
 
 ### Lightweight
 
 As you might imagine from it's simplicity, Promptly is unbelievably lightweight. While still being visually appealing and modern looking, each page barely uses any network resources at all, meaning the entire website feels extremely snappy and responsive.
 
+### Responsive
+
+Promptly is designed to be easy to use and visually pleasing on devices of all sizes, ranging from compact smart phones to giant desktop displays. All styling is done using plain CSS, meaning even devices that don't support JavaScript will get the same responsive experience.
+
 ### Accessible
 
-The simple design of Promptly makes in inherently accessible. All of the webpages are clearly laid out, easy to understand, and easy to read, even with visual impairments. Promptly is also very screen-reader friendly.
+The simple design of Promptly makes in inherently accessible. All of the webpages are clear, simple to understand, and easy to read, even with visual impairments. Promptly is also very screen-reader friendly.
 
 ### Modifiable
 
@@ -36,4 +40,4 @@ Promptly is designed to be as easy to modify as possible, and has hundreds of in
 
 ### Customizable
 
-For people who don't want to take the time modifying Promptly, it already has plenty of built in customization. It's easy to configure things like max post length, who is allowed to make posts, and even styling.
+For people who don't want to take the time modifying Promptly, it already has plenty of built in customization. It's easy to configure things like max post length, who is allowed to make posts, and even the themes and styling used by Promptly.
