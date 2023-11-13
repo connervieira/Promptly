@@ -1,12 +1,7 @@
 <?php
+$force_login_redirect = true;
+include("../dropauth/authentication.php");
 include("./config.php");
-
-// Check to see if the user is signed in.
-session_start();
-if (isset($_SESSION['loggedin'])) {
-	$username = $_SESSION['username'];
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +14,12 @@ if (isset($_SESSION['loggedin'])) {
 
     <body>
         <?php
-        if ($username !== $promptly_config["admin_account"] and $promptly_config["admin_only_posting"] == true) { // Check to see if the current user actually has permission to be making posts.
+        if ($username !== $promptly_config["auth"]["admin_account"] and in_array($username, $promptly_config["auth"]["authorized_authors"]) == false) { // Check to see if the current user actually has permission to be making posts.
             echo "<p>Error: You do not have permission to make posts. Please make sure you are signed in with the correct account.</p>";
             exit(); // Stop loading the page if the user isn't signed in with an account that allows them to post.
         }
         ?>
-        <div class="button-container">
+        <div style="text-align:left;">
             <a class="button" href='./index.php'>Back</a>
         </div>
         <h1 class="title">Blog Draft</h1> 

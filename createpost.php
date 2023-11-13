@@ -12,12 +12,12 @@ include("./config.php");
         <?php
         // Check to see if the user is signed in. Otherwise, redirect them to the login page.
 
-        if ($username !== $promptly_config["admin_account"] and $promptly_config["admin_only_posting"] == true) { // Make sure the user is signed in with an account that allows them to make posts.
-            echo "<p>Error: You do not have permission to create posts. Please make sure you are signed in with the correct account.</p>";
-            exit();
-        } else {
+        if ($username == $promptly_config["auth"]["admin_account"] or in_array($username, $promptly_config["auth"]["authorized_authors"])) { // Make sure the user is signed in with an account that allows them to make posts.
             // Load the posts database from disk.
             $post_database = unserialize(file_get_contents('./blogpostdatabase.txt'));
+        } else {
+            echo "<p>Error: You do not have permission to create posts. Please make sure you are signed in with the correct account.</p>";
+            exit();
         }
 
 
@@ -77,8 +77,7 @@ include("./config.php");
 
         
         // Iterate through the entire post and remove any characters not in the approved list.
-        $allowed_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?.,'\"_-+=/\\~@#$%^&*()[]}{;:©£¢¥®±¿Ø÷×ºµ¦₿ "; // Note: The space at end of string is intentional.
-
+        $allowed_characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?.,'\"_-+=/\\~@#$%^&*()[]}{;:©£¢¥®±¿Ø÷×ºµ¦₿ ";
         $input_string_array = str_split($post_text); // Convert the post text string into an array of characters.
         $post_text = ""; // Set the post text to a blank string so we can add each character back one-by-one as we validate them.
         foreach ($input_string_array as $input_string_character) {

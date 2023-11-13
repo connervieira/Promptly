@@ -22,16 +22,16 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
     <body>
         <div class="button-container">
             <?php
-            if ($username == $promptly_config["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
+            if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
                 echo "<a class='button' href='./draft.php'>Create Post</a>";
             }
             if ($username !== null) { // Only show the "Sign Out" button if the user is signed in.
-                echo "<a class='button' href='" . $promptly_config["signout_page"] . "'>Sign Out</a>";
+                echo "<a class='button' href='" . $promptly_config["auth"]["signout_page"] . "'>Sign Out</a>";
             }
             ?>
         </div>
-        <h1 class="title"><?php echo $promptly_config["instance_name"]; ?></h1> 
-        <h3 class="subtitle"><?php echo $promptly_config["instance_tagline"]; ?></h3>
+        <h1 class="title"><?php echo $promptly_config["branding"]["instance_name"]; ?></h1> 
+        <h3 class="subtitle"><?php echo $promptly_config["branding"]["instance_tagline"]; ?></h3>
         <hr>
         <div class="posts-view">
             <?php
@@ -47,7 +47,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
                     } else {
                         echo "<p class='post-text'>" . substr($post_database[$post_id]["body"], 0, $promptly_config["post_summary_length"]) . "...</p>"; // Show a shortened version of the post body text.
                     }
-                    if ($username == $promptly_config["admin_account"]) { // Only show the delete button if the user is signed in as the admin account.
+                    if ($username == $promptly_config["auth"]["admin_account"] or $username == $post_database[$post_id]["author"]["primary"]) { // Only show the delete button if the user is signed in as the admin account.
                         echo "<a class='button' href='deletepost.php?post_to_delete=" . $post_id . "'>Delete post</a>";
                     }
                     echo "</div></a>";
