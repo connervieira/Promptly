@@ -28,7 +28,7 @@ include("./config.php");
 
 
         // Make sure the post text is below the limit.
-        if (strlen($post_text) >= $promptly_config["max_post_body_length"]) {
+        if (strlen($post_text) >= $promptly_config["post"]["body"]["length"]["max"]) {
             echo "Error: The post text exceeds the maximum length.";
             echo "<br><a href='./draft.php" . "'>Back</a>";
             exit();
@@ -37,7 +37,7 @@ include("./config.php");
 
 
         // Make sure the post title is below the limit.
-        if (strlen($post_title) >= $promptly_config["max_post_title_length"]) {
+        if (strlen($post_title) >= $promptly_config["post"]["title"]["length"]["max"]) {
             echo "Error: The post title exceeds the maximum length.";
             echo "<br><a href='./draft.php" . "'>Back</a>";
             exit();

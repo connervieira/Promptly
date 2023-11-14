@@ -53,7 +53,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
                     if (strlen($post_database[$post_id]["body"]) < $promptly_config["post_summary_length"]) {
                         echo "<p class='post-text'>" . $post_database[$post_id]["body"] . "</p>"; // Show the post body text.
                     } else {
-                        echo "<p class='post-text'>" . substr($post_database[$post_id]["body"], 0, $promptly_config["post_summary_length"]) . "...</p>"; // Show a shortened version of the post body text.
+                        echo "<p class='post-text'>" . substr($post_database[$post_id]["body"], 0, $promptly_config["post"]["summary"]["length"]) . "...</p>"; // Show a shortened version of the post body text.
                     }
                     if ($username == $promptly_config["auth"]["admin_account"] or $username == $post_database[$post_id]["author"]["primary"]) { // Only show the delete button if the user is signed in as the admin account.
                         echo "<a class='button' href='deletepost.php?post_to_delete=" . intval($post_id) . "'>Delete</a>";

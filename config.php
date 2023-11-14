@@ -22,9 +22,9 @@ if (file_exists($promptly_config_database_name) == false) { // Check to see if t
     $promptly_config["auth"]["admin_account"] = ""; // This setting determines a username that is permitted to create and delete all posts.
     $promptly_config["auth"]["authorized_authors"] = array(); // This setting is an array of usernames that are permitted to make posts.
 
-    $promptly_config["max_post_title_length"] = 200; // This value sets the maximum amount of characters that are allowed in the title of a post.
-    $promptly_config["max_post_body_length"] = 100000; // This value sets the maximum amount of characters that are allowed in the body of the post.
-    $promptly_config["post_summary_length"] = 200; // This value sets how many characters long the post summary on the main page will be before the user fully opens the article.
+    $promptly_config["post"]["title"]["length"]["max"] = 200; // This value sets the maximum amount of characters that are allowed in the title of a post.
+    $promptly_config["post"]["body"]["length"]["max"] = 100000; // This value sets the maximum amount of characters that are allowed in the body of the post.
+    $promptly_config["post"]["summary"]["length"] = 200; // This value sets how many characters long the post summary on the main page will be before the user fully opens the article.
 
 
     fwrite($promptly_configuration_database_file, serialize($promptly_config)); // Set the contents of the database file to the placeholder configuration.
