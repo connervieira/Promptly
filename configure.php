@@ -10,15 +10,15 @@ if ($_POST["theme"] == "light" or $_POST["theme"] == "dark" or $_POST["theme"] =
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Configure</title>
+        <title><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?> - Configure</title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
 
     <body>
         <?php
-        if ($username !== $promptly_config["auth"]["admin_account"]) { // Check to see if the current user actually has permission to be making posts.
-            echo "<p>Error: You do not have permission to configure " . $promptly_config["branding"]["instance_name"] . ". Please make sure you are signed in with the correct account.</p>";
+        if ($username !== $promptly_config["auth"]["admin_account"] and $promptly_config["auth"]["admin_account"] !== "") { // Check to see if the current user has permission to edit the configuration. Alternatively, if no administrator user is configured at all, then allow any user to edit the configuration so an administrator can be set.
+            echo "<p>Error: You do not have permission to configure " . htmlspecialchars($promptly_config["branding"]["instance_name"]) . ". Please make sure you are signed in with the correct account.</p>";
             exit(); // Stop loading the page if the user isn't signed in with an account that allows them to post.
         }
 
@@ -28,7 +28,7 @@ if ($_POST["theme"] == "light" or $_POST["theme"] == "dark" or $_POST["theme"] =
             <a class="button" href='./index.php'>Back</a>
         </div>
         <h1 class="title">Configure</h1> 
-        <h3 class="subtitle">Manage the <?php echo $promptly_config["branding"]["instance_name"]; ?> configuration</h3>
+        <h3 class="subtitle">Manage the <?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?> configuration</h3>
         <?php
         $config_valid = true; // This value will be changed to false in the event that an invalid configuration value is encountered.
         if (isset($_POST["theme"])) {
@@ -49,18 +49,20 @@ if ($_POST["theme"] == "light" or $_POST["theme"] == "dark" or $_POST["theme"] =
 
             $promptly_config["auth"]["admin_account"] = $_POST["auth>admin_account"];
             $promptly_config["auth"]["authorized_authors"] = array();
-            if (strlen($_POST["auth>authorized_authors"]) > 0) {
-                foreach (explode(",", $_POST["auth>authorized_authors"]) as $author) {
-                    array_push($promptly_config["auth"]["authorized_authors"], trim($author));
+            if (strlen($_POST["auth>authorized_authors"]) > 0) { // Check to see if the 'auth>authorized_authors' is at least one character long.
+                foreach (explode(",", $_POST["auth>authorized_authors"]) as $author) { // Iterate through each element entered by the user, separated by commas.
+                    if (strlen($author) > 0) { // Make sure this element is at least one character long before adding it to the configuration.
+                        array_push($promptly_config["auth"]["authorized_authors"], trim($author)); // Add this element to the configuration with any leading or trailing whitespaces removed.
+                    }
                 }
             }
 
 
-            if ($config_valid == true) {
+            if ($config_valid == true) { // Make sure the configuration is valid before saving it to disk.
                 file_put_contents($promptly_config_database_name, serialize($promptly_config)); // Save the updated configuration to disk.
                 echo "<p>Successfully updated configuration.</p>";
             } else {
-                echo "<p>The configuration was not updated.</p>";
+                echo "<p>The configuration was not updated.</p>"; // Inform the user that the configuration was not saved to disk. Relevant errors should be displayed during the validation process above.
             }
         }
         ?>

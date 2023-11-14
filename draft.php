@@ -7,7 +7,7 @@ include("./config.php");
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Draft</title>
+        <title><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?> - Draft</title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
@@ -25,8 +25,8 @@ include("./config.php");
         <h1 class="title">Draft</h1> 
         <h3 class="subtitle">Create new post</h3>
         <form action="./createpost.php" method="post">
-            <label for="posttitle">Post title: </label><input autocomplete="off" type="text" maxlength="<?php echo $promptly_config["max_post_title_length"]; ?>" placeholder="Post title" name="posttitle"><br><br>
-            <label for="posttext">Post text: </label><textarea style="width:100%;height:400px;" autocomplete="off" type="text" maxlength="<?php echo $promptly_config["max_post_body_length"]; ?>" placeholder="Post text" id="posttext" name="posttext"></textarea><br><br>
+            <label for="posttitle">Post title: </label><input autocomplete="off" type="text" maxlength="<?php echo intval($promptly_config["max_post_title_length"]); ?>" placeholder="Post title" name="posttitle"><br><br>
+            <label for="posttext">Post text: </label><textarea style="width:100%;height:400px;" autocomplete="off" type="text" maxlength="<?php echo intval($promptly_config["max_post_body_length"]); ?>" placeholder="Post text" id="posttext" name="posttext"></textarea><br><br>
             <input class="button" value="Post" type="submit">
         </form>
     </body>

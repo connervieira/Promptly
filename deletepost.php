@@ -6,7 +6,7 @@ include("./config.php"); // Load the Promptly configuration information.
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Delete Post</title>
+        <title><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?> - Delete Post</title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
@@ -36,7 +36,7 @@ include("./config.php"); // Load the Promptly configuration information.
             echo "<p>No posts were deleted.</p>";
             exit(); // Stop loading the page.
         } else if (time() - $_GET["confirmation"] < 30) { // Check to see if the confirmation timestamp is within the past 30 seconds.
-            if ($username == $promptly_config["auth"]["admin_account"] or $username == $post_database[$post_id]["author"]["primary"]) { // Only show the delete button if the user is signed in as the admin account.
+            if ($username == $promptly_config["auth"]["admin_account"] or $username == $post_database[$id_to_delete]["author"]["primary"]) { // Only show the delete button if the user is signed in as the admin account.
                 unset($post_database[$id_to_delete]); // Remove the specified post from the post database.
             } else {
                 echo "<p>Error: You do not have permission to remove this post. Please make sure you are signed in with the correct account.</p>";
@@ -49,7 +49,7 @@ include("./config.php"); // Load the Promptly configuration information.
             header('Location: ' . $redirect_location); // Execute the redirect.
         } else {
             echo "<div style='text-align:left;'><a class='button' href='./index.php'>Back</a></div>";
-            echo "<p>Are you sure you would like to delete <b>" . $post_database[$id_to_delete]["title"] . "</b>?</p>";
+            echo "<p>Are you sure you would like to delete <b>" . htmlspecialchars($post_database[$id_to_delete]["title"]) . "</b>?</p>";
             echo "<a class='button' href='?post_to_delete=" . $id_to_delete . "&confirmation=" . time() . "'>Confirm</a>";
             exit(); // Stop loading the page.
         }

@@ -12,7 +12,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title><?php echo $promptly_config["branding"]["instance_name"]; ?></title>
+        <title><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?></title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
@@ -24,16 +24,23 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
                 if ($username == $promptly_config["auth"]["admin_account"] or in_array($username, $promptly_config["auth"]["authorized_authors"])) { // Only show the "Create Post" option if the user is signed in as an admin.
                     echo "<a class='button' href='./draft.php'>Create Post</a>";
                 }
-                if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
+                if ($username == $promptly_config["auth"]["admin_account"] or $promptly_config["auth"]["admin_account"] == "") { // Only show the "Create Post" option if the user is signed in as an admin.
                     echo "<a class='button' href='./configure.php'>Configure</a>";
                 }
                 echo "<a class='button' href='" . $promptly_config["auth"]["pages"]["signout"] . "'>Sign Out</a>";
             }
             ?>
         </div>
-        <h1 class="title"><?php echo $promptly_config["branding"]["instance_name"]; ?></h1> 
-        <h3 class="subtitle"><?php echo $promptly_config["branding"]["instance_tagline"]; ?></h3>
+        <h1 class="title"><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?></h1> 
+        <h3 class="subtitle"><?php echo htmlspecialchars($promptly_config["branding"]["instance_tagline"]); ?></h3>
         <hr>
+        <?php
+        if ($promptly_config["auth"]["admin_account"] == "") {
+            echo "<p>There is no administrator user set in the configuration. The configuration interface is currently unrestricted to allow for an administrator user to be configured. Make sure an administrator is set before publishing this instance.</p>";
+            echo "<p>The rest of this page will not load until an administrator has been configured.</p>";
+            exit();
+        }
+        ?>
         <div class="posts-view">
             <?php
             if (sizeof($post_database) > 0) { // Check to see if there are actually any posts in the database.
@@ -49,7 +56,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
                         echo "<p class='post-text'>" . substr($post_database[$post_id]["body"], 0, $promptly_config["post_summary_length"]) . "...</p>"; // Show a shortened version of the post body text.
                     }
                     if ($username == $promptly_config["auth"]["admin_account"] or $username == $post_database[$post_id]["author"]["primary"]) { // Only show the delete button if the user is signed in as the admin account.
-                        echo "<a class='button' href='deletepost.php?post_to_delete=" . $post_id . "'>Delete post</a>";
+                        echo "<a class='button' href='deletepost.php?post_to_delete=" . intval($post_id) . "'>Delete</a>";
                     }
                     echo "</div></a>";
                 }

@@ -5,7 +5,7 @@ include("./config.php");
 ?>
 <html lang="en">
     <head>
-        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Create Post</title>
+        <title><?php echo htmlspecialchars($promptly_config["branding"]["instance_name"]); ?> - Create Post</title>
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
     <body>
@@ -54,6 +54,7 @@ include("./config.php");
         $post_text = str_replace("<u>", "&&u", $post_text);
         $post_text = str_replace("</u>", "&&/u", $post_text);
 
+        $post_text = str_replace(array("\r\n", "\n\r"), "&&br", $post_text);
         $post_text = str_replace(array("\r", "\n"), "&&br", $post_text);
         $post_text = str_replace("<", "&lt;", $post_text);
         $post_text = str_replace(">", "&gt;", $post_text);

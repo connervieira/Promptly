@@ -56,4 +56,7 @@ input {
     font-size: 17px;
     margin-bottom: 40px;
     margin-top: 0px;
- }
+}
+.post-text br {
+    margin-bottom: -10px;
+}
