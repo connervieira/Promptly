@@ -13,10 +13,14 @@ January 23rd, 2022
 
 ## Version 2.0
 
-*Release date to-be-determined*
+### Conveinence Update
+
+This update makes extensive changes to the way Promptly works in the background in order to make it much easier and more convienent to self-host.
+
+November 13th, 2023
 
 - Fixed post deletion bug where instance admins couldn't delete posts.
-- Removed the existing authentication system and replaced it with (DropAuth)[https://v0lttech.com/dropauth.php]
+- Removed the existing authentication system and replaced it with [DropAuth](https://v0lttech.com/dropauth.php)
 - Simplified stylesheets by creating a main stylesheet that all themes have in common.
 - Re-designed the configuration back-end.
     - The configuration is now stored in a stand-alone file that can be easily moved and manipulated.
