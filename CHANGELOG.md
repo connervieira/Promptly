@@ -19,6 +19,8 @@ January 23rd, 2022
 - Removed the existing authentication system and replaced it with (DropAuth)[https://v0lttech.com/dropauth.php]
 - Simplified stylesheets by creating a main stylesheet that all themes have in common.
 - Re-designed the configuration back-end.
+    - The configuration is now stored in a stand-alone file that can be easily moved and manipulated.
+    - Promptly can now be configured from the web interface by the administrator.
 - Re-designed the post database back-end to make future expansion much easier.
 - Updated the way posts are viewed.
     - A brief summary of each post is now displayed on the main page.
