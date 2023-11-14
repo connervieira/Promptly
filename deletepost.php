@@ -6,7 +6,7 @@ include("./config.php"); // Load the Promptly configuration information.
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Blog - Delete Post</title>
+        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Delete Post</title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>

@@ -12,7 +12,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Blog</title>
+        <title><?php echo $promptly_config["branding"]["instance_name"]; ?></title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
@@ -21,10 +21,13 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
         <div class="button-container">
             <?php
             if (isset($username)) { // Only show certain actions if the user is signed in.
-                if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
+                if ($username == $promptly_config["auth"]["admin_account"] or in_array($username, $promptly_config["auth"]["authorized_authors"])) { // Only show the "Create Post" option if the user is signed in as an admin.
                     echo "<a class='button' href='./draft.php'>Create Post</a>";
                 }
-                echo "<a class='button' href='" . $promptly_config["auth"]["signout_page"] . "'>Sign Out</a>";
+                if ($username == $promptly_config["auth"]["admin_account"]) { // Only show the "Create Post" option if the user is signed in as an admin.
+                    echo "<a class='button' href='./configure.php'>Configure</a>";
+                }
+                echo "<a class='button' href='" . $promptly_config["auth"]["pages"]["signout"] . "'>Sign Out</a>";
             }
             ?>
         </div>
@@ -38,7 +41,7 @@ if (file_exists('./blogpostdatabase.txt') == true) { // Check to see if the blog
                 foreach (array_reverse(array_keys($post_database)) as $post_id) { // Iterate through the post database in reverse so that the post are displayed from the most recent to the oldest.
                     $post_displayed_count++; // Increment the displayed posts counter.
                     echo "<a href='./view.php?post=" . $post_id . "'><div class='individual-post'>";
-                    echo "<h1 class='post-title'>" . $post_database[$post_id]["title"] . "</h1>"; // Show the post title.
+                    echo "<h1 class='post-title'>" . htmlspecialchars($post_database[$post_id]["title"]) . "</h1>"; // Show the post title.
                     echo "<p class='post-date'>" . date('Y-m-d H:i:s', $post_database[$post_id]["time"]["created"]) . "</p>"; // Show the post date text.
                     if (strlen($post_database[$post_id]["body"]) < $promptly_config["post_summary_length"]) {
                         echo "<p class='post-text'>" . $post_database[$post_id]["body"] . "</p>"; // Show the post body text.

@@ -5,7 +5,7 @@ include("./config.php");
 ?>
 <html lang="en">
     <head>
-        <title>Blog - Create Post</title>
+        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - Create Post</title>
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
     <body>
@@ -47,31 +47,14 @@ include("./config.php");
 
         // Replace permitted HTML strings with placeholders.
         $post_text = str_replace("<br>", "&&br", $post_text);
-        $post_text = str_replace("<hr>", "&&hr", $post_text);
-        $post_text = str_replace("<ul>", "&&ul", $post_text);
-        $post_text = str_replace("</ul>", "&&/ul", $post_text);
-        $post_text = str_replace("<ol>", "&&ol", $post_text);
-        $post_text = str_replace("</ol>", "&&/ol", $post_text);
-        $post_text = str_replace("<li>", "&&li", $post_text);
-        $post_text = str_replace("</li>", "&&/li", $post_text);
         $post_text = str_replace("<b>", "&&b", $post_text);
         $post_text = str_replace("</b>", "&&/b", $post_text);
         $post_text = str_replace("<i>", "&&i", $post_text);
         $post_text = str_replace("</i>", "&&/i", $post_text);
         $post_text = str_replace("<u>", "&&u", $post_text);
         $post_text = str_replace("</u>", "&&/u", $post_text);
-        $post_text = str_replace("<h1>", "&&h1", $post_text);
-        $post_text = str_replace("</h1>", "&&/h1", $post_text);
-        $post_text = str_replace("<h2>", "&&h2", $post_text);
-        $post_text = str_replace("</h2>", "&&/h2", $post_text);
-        $post_text = str_replace("<h3>", "&&h3", $post_text);
-        $post_text = str_replace("</h3>", "&&/h3", $post_text);
-        $post_text = str_replace("<h4>", "&&h4", $post_text);
-        $post_text = str_replace("</h4>", "&&/h4", $post_text);
-        $post_text = str_replace("<h5>", "&&h5", $post_text);
-        $post_text = str_replace("</h5>", "&&/h5", $post_text);
-        $post_text = str_replace("<h6>", "&&h6", $post_text);
-        $post_text = str_replace("</h6>", "&&/h6", $post_text);
+
+        $post_text = str_replace(array("\r", "\n"), "&&br", $post_text);
         $post_text = str_replace("<", "&lt;", $post_text);
         $post_text = str_replace(">", "&gt;", $post_text);
 
@@ -86,35 +69,14 @@ include("./config.php");
             }
         }
 
-
         // Fix custom formatting that was broken by the sanitzation process.
         $post_text = str_replace("&&br", "<br>", $post_text);
-        $post_text = str_replace("&&hr", "<hr>", $post_text);
-        $post_text = str_replace("&&ul", "<ul>", $post_text);
-        $post_text = str_replace("&&/ul", "</ul>", $post_text);
-        $post_text = str_replace("&&ol", "<ol>", $post_text);
-        $post_text = str_replace("&&/ol", "</ol>", $post_text);
-        $post_text = str_replace("&&li", "<li>", $post_text);
-        $post_text = str_replace("&&/li", "</li>", $post_text);
         $post_text = str_replace("&&b", "<b>", $post_text);
         $post_text = str_replace("&&/b", "</b>", $post_text);
         $post_text = str_replace("&&i", "<i>", $post_text);
         $post_text = str_replace("&&/i", "</i>", $post_text);
         $post_text = str_replace("&&u", "<u>", $post_text);
         $post_text = str_replace("&&/u", "</u>", $post_text);
-        $post_text = str_replace("&&h1", "<h1>", $post_text);
-        $post_text = str_replace("&&/h1", "</h1>", $post_text);
-        $post_text = str_replace("&&h2", "<h2>", $post_text);
-        $post_text = str_replace("&&/h2", "</h2>", $post_text);
-        $post_text = str_replace("&&h3", "<h3>", $post_text);
-        $post_text = str_replace("&&/h3", "</h3>", $post_text);
-        $post_text = str_replace("&&h4", "<h4>", $post_text);
-        $post_text = str_replace("&&/h4", "</h4>", $post_text);
-        $post_text = str_replace("&&h5", "<h5>", $post_text);
-        $post_text = str_replace("&&/h5", "</h5>", $post_text);
-        $post_text = str_replace("&&h6", "<h6>", $post_text);
-        $post_text = str_replace("&&/h6", "</h6>", $post_text);
-
 
         $post_time = time();
         $post_database[$post_time] = array();

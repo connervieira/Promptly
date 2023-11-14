@@ -16,9 +16,9 @@ if (file_exists($promptly_config_database_name) == false) { // Check to see if t
 
     $promptly_config["theme"] = "dark"; // This setting determines which stylesheet Promptly will use. Currently, this can be set to "light", "dark", "red", "blue", or "green".
 
-    $promptly_config["auth"]["login_page"] = "../dropauth/login.php"; // This setting determines the login page for Promptly.
-    $promptly_config["auth"]["signup_page"] = "../dropauth/signup.php"; // This setting determines the signup page for Promptly.
-    $promptly_config["auth"]["signout_page"] = "../dropauth/signout.php"; // This setting determines the signout page for Promptly.
+    $promptly_config["auth"]["pages"]["signin"] = "../dropauth/login.php"; // This setting determines the login page for Promptly.
+    $promptly_config["auth"]["pages"]["signup"] = "../dropauth/signup.php"; // This setting determines the signup page for Promptly.
+    $promptly_config["auth"]["pages"]["signout"] = "../dropauth/signout.php"; // This setting determines the signout page for Promptly.
     $promptly_config["auth"]["admin_account"] = "test"; // This setting determines a username that is permitted to create and delete all posts.
     $promptly_config["auth"]["authorized_authors"] = array(); // This setting is an array of usernames that are permitted to make posts.
 

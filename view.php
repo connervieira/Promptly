@@ -20,7 +20,7 @@ if (isset($post_database[$post_to_view]) == true) { // Check to make sure the sp
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Blog</title>
+        <title><?php echo $promptly_config["branding"]["instance_name"]; ?> - <?php echo $post_database[$post_to_view]["title"]; ?></title>
         <link rel="stylesheet" type="text/css" href="./styles/main.css">
         <link rel="stylesheet" type="text/css" href="./styles/<?php echo $promptly_config["theme"]; ?>.css">
     </head>
@@ -32,10 +32,8 @@ if (isset($post_database[$post_to_view]) == true) { // Check to make sure the sp
         <h1 class="title"><?php echo $post["title"]; ?></h1> 
         <h3 class="subtitle"><?php echo date("F dS, Y g:i A", $post["time"]["created"]); ?></h3>
         <hr>
-        <div class="posts-view">
-            <?php
-            echo "<p>" . $post["body"] . "</p>"; // Show the post body text.
-            ?>
+        <div style="text-align:left;">
+            <p><?php echo $post["body"]; ?></p>
         </div>
     </body>
 </html>
